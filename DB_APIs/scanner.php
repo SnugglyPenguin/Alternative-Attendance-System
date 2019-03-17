@@ -15,7 +15,7 @@ if(is_int($scannerID)) {                                            // Sets up e
 
 // Start of database connection
 // Here code will connect to main database, confirm if hash is correct, if it was scanner within time limit and if everything is correct pass scan information to diffrent table
-$db_conn = new mysqli('localhost', 'rwp', 'password', 'rwp');
+$db_conn = new mysqli('localhost', 'rwp', 'LZ.sNnClF.KBbHmH46', 'rwp');
 if ($db_conn->connect_error) {                                      // Sets up error if there was any problem with connection to database
     $error = 3;
 }
@@ -41,7 +41,8 @@ if ($db_stmt->num_rows > 0) {                                       // Check if 
         $db_stmt->execute();
     }
 } else {                                                            // Sets up error QR is not in database
-    $error = 4;
+    if($error != 1)
+      $error = 4;
 }
 $db_stmt->close();
 // End of database connection

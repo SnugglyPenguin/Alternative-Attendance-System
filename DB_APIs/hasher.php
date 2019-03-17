@@ -19,14 +19,27 @@ if(!preg_match('/^[a-f0-9]{32}$/', $hash)) {                        // Sets up e
 
 // Start of database connection
 // Here code will connect to main database and pass information about generation of hash
-$db_conn = new mysqli('localhost', 'rwp', 'password', 'rwp');
+$db_conn = new mysqli('localhost', 'rwp', 'LZ.sNnClF.KBbHmH46', 'rwp');
 if ($db_conn->connect_error) {                                      // Sets up error if there was any problem with connection to database
     $error = 3;
 }
-$db_stmt = $db_conn->prepare("INSERT INTO GeneratedHashes (StudentID, AuthHash, Date) VALUES (?, ?, ?)");
-$db_stmt->bind_param("iss", $studentID, $hash, $current_time);
+
+$db_stmt = $db_conn->prepare("SELECT * FROM GeneratedHashes WHERE StudentID = ?");
+$db_stmt->bind_param("s", $studentID);
 $db_stmt->execute();
-$db_stmt->close();
+$db_stmt->store_result();
+
+if ($db_stmt->num_rows > 0) {
+    $db_stmt = $db_conn->prepare("UPDATE GeneratedHashes SET AuthHash=?,Date=? WHERE StudentID=?");
+    $db_stmt->bind_param("sss", $hash, $current_time, $studentID);
+    $db_stmt->execute();
+    $db_stmt->close();
+} else {
+    $db_stmt = $db_conn->prepare("INSERT INTO GeneratedHashes (StudentID, AuthHash, Date) VALUES (?, ?, ?)");
+    $db_stmt->bind_param("sss", $studentID, $hash, $current_time);
+    $db_stmt->execute();
+    $db_stmt->close();
+}
 // End of database connection
 
 // Start of generation of json output
