@@ -39,6 +39,7 @@ import com.journeyapps.barcodescanner.BarcodeView;
 import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.journeyapps.barcodescanner.camera.CameraSettings;
+import com.snatik.storage.Storage;
 
 import org.w3c.dom.Text;
 
@@ -286,6 +287,15 @@ public class MainActivity extends AppCompatActivity
         {
             toastMessage = "Error 3: Issue reaching database, try again!";
 
+            String currentTimeDateString = DateFormat.getDateTimeInstance().format(new Date());//gets the current time and date
+
+            Storage storage = new Storage(getApplicationContext());//creates storage
+            String path = storage.getInternalFilesDirectory();//used to get internal storage over SD card/ external storage
+            System.out.println(path);//path of file is printed in the terminal
+            storage.createFile(path + "/errorMessageFile.txt", currentTimeDateString + ": Error 3: Issue reaching database, try again!");//file is created along with the message
+            String finalPath = path + "/errorMessageFile.txt";//make the storage file a string
+            String content = storage.readTextFile(finalPath);//^^
+            System.out.println("Some text " + content);//test the string is working as planned
 
         }
 
