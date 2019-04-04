@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="210dp"
+        android:layout_height="75dp"
+        app:srcCompat="@drawable/covuni"
+        android:gravity="center"
+    />
+
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/barcode_scanner"
+        android:layout_below="@+id/imageView"
+        android:layout_width="180mm"
+        android:layout_height="100mm"
+        android:gravity="center"
+        android:text="">
+
+    </com.journeyapps.barcodescanner.DecoratedBarcodeView>
+
+    <android.widget.TextClock
+        android:id="@+id/digitalClock"
+        android:layout_width="207dp"
+        android:layout_height="69dp"
+
+        android:layout_alignTop="@+id/imageView"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/imageView"
+        android:format12Hour="@null"
+        android:format24Hour="kk:mm:ss"
+        android:textSize="48dp"
+        android:textStyle="bold"
+        android:timeZone="GMT+0000" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="180mm"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/barcode_scanner"
+        android:layout_alignStart="@+id/imageView"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/roomID"
+        android:layout_width="207dp"
+        android:layout_height="69dp"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@+id/digitalClock"
+        android:text="" />
+
+</RelativeLayout>
